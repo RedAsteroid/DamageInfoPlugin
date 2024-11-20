@@ -16,7 +16,7 @@ using FFXIVClientStructs.FFXIV.Client.UI;
 using FFXIVClientStructs.FFXIV.Component.GUI;
 using ImGuiNET;
 using static DamageInfoPlugin.LogType;
-using Action = Lumina.Excel.GeneratedSheets.Action;
+using Action = Lumina.Excel.Sheets.Action;
 using Character = FFXIVClientStructs.FFXIV.Client.Game.Character.Character;
 using DObjectKind = Dalamud.Game.ClientState.Objects.Enums.ObjectKind;
 
@@ -113,14 +113,14 @@ public unsafe class DamageInfoPlugin : IDalamudPlugin
 
 			foreach (var row in actionSheet)
 			{
-				var dmgType = ((AttackType)row.AttackType.Row).ToDamageType();
+				var dmgType = ((AttackType)row.AttackType.RowId).ToDamageType();
 				var name = row.Name;
 				
 				_actionToDamageTypeDict.Add(row.RowId, dmgType);
 				_actionToNameDict.Add(row.RowId, name.ToString());
 
-				if (row.ActionCategory.Row is > 4 and < 11)
-					_ignoredCastActions.Add(row.ActionCategory.Row);
+				if (row.ActionCategory.RowId is > 4 and < 11)
+					_ignoredCastActions.Add(row.ActionCategory.RowId);
 			}
 
 			var receiveActionEffectFuncPtr = DalamudApi.SigScanner.ScanText("40 55 56 57 41 54 41 55 41 56 48 8D AC 24");

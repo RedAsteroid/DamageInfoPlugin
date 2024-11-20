@@ -8,7 +8,7 @@ namespace DamageInfoPlugin.Positionals;
 
 public class PositionalManager
 {
-    private const string SheetUrl = "https://docs.google.com/spreadsheets/d/1UchGyajO-AG6gQwXQT1bsb3sh2ucwOU_vuqT8FRR8Ac/gviz/tq?tqx=out:csv&sheet=main1";
+    private const string SheetUrl = "https://docs.google.com/spreadsheets/d/1z2skn_jokyj02Qv2GPEs6HSmAZVLiw2LbwQxkXPjiEs/gviz/tq?tqx=out:csv&sheet=main1";
     private readonly string _filePath = Path.Combine(DalamudApi.PluginInterface.AssemblyLocation.DirectoryName!, "positionals.csv");
     
     private readonly HttpClient _client;
