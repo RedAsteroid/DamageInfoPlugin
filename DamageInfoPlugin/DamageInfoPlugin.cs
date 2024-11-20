@@ -792,7 +792,7 @@ public unsafe class DamageInfoPlugin : IDalamudPlugin
 	{
 		try
 		{
-			UIModule.PlayChatSoundEffect((uint)soundId);
+			UIGlobals.PlayChatSoundEffect((uint)soundId);
 		}
 		catch (ArgumentException e)
 		{
