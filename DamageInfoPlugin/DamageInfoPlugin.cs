@@ -129,7 +129,7 @@ public unsafe class DamageInfoPlugin : IDalamudPlugin
 			var addScreenLogPtr = DalamudApi.SigScanner.ScanText("E8 ?? ?? ?? ?? BF ?? ?? ?? ?? EB 39");
 			_addScreenLogHook = DalamudApi.Hooks.HookFromAddress<AddScreenLogDelegate>(addScreenLogPtr, AddScreenLogDetour);
 
-			var setCastBarFuncPtr = DalamudApi.SigScanner.ScanText("E8 ?? ?? ?? ?? 4C 8D 8F ?? ?? ?? ?? 4D 8B C6");
+			var setCastBarFuncPtr = DalamudApi.SigScanner.ScanText("E8 ?? ?? ?? ?? 4C 8D 8F ?? ?? ?? ?? 4D 8B C6 48 8B D5");
 			_setCastBarHook = DalamudApi.Hooks.HookFromAddress<SetCastBarDelegate>(setCastBarFuncPtr, SetCastBarDetour);
 
 			var setFocusTargetCastBarFuncPtr = DalamudApi.SigScanner.ScanText("40 56 41 54 41 55 41 57 48 83 EC 78");
