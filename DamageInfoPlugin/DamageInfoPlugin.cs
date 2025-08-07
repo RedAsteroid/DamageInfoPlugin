@@ -14,7 +14,7 @@ using Dalamud.Hooking;
 using DamageInfoPlugin.Positionals;
 using FFXIVClientStructs.FFXIV.Client.UI;
 using FFXIVClientStructs.FFXIV.Component.GUI;
-using ImGuiNET;
+using Dalamud.Bindings.ImGui;
 using static DamageInfoPlugin.LogType;
 using Action = Lumina.Excel.Sheets.Action;
 using Character = FFXIVClientStructs.FFXIV.Client.Game.Character.Character;
@@ -123,7 +123,7 @@ public unsafe class DamageInfoPlugin : IDalamudPlugin
 					_ignoredCastActions.Add(row.ActionCategory.RowId);
 			}
 
-			var receiveActionEffectFuncPtr = DalamudApi.SigScanner.ScanText("40 55 53 56 41 54 41 55 41 56 41 57 48 8D AC 24 ?? ?? ?? ?? 48 81 EC ?? ?? ?? ?? 48 8B 05 ?? ?? ?? ?? 48 33 C4 48 89 45 70");
+			var receiveActionEffectFuncPtr = DalamudApi.SigScanner.ScanText("40 55 56 57 41 54 41 55 41 56 41 57 48 8D AC 24");
 			_receiveActionEffectHook = DalamudApi.Hooks.HookFromAddress<ReceiveActionEffectDelegate>(receiveActionEffectFuncPtr, ReceiveActionEffect);
 
 			var addScreenLogPtr = DalamudApi.SigScanner.ScanText("E8 ?? ?? ?? ?? BF ?? ?? ?? ?? EB 39");
@@ -132,7 +132,7 @@ public unsafe class DamageInfoPlugin : IDalamudPlugin
 			var setCastBarFuncPtr = DalamudApi.SigScanner.ScanText("E8 ?? ?? ?? ?? 4C 8D 8F ?? ?? ?? ?? 4D 8B C6 48 8B D5");
 			_setCastBarHook = DalamudApi.Hooks.HookFromAddress<SetCastBarDelegate>(setCastBarFuncPtr, SetCastBarDetour);
 
-			var setFocusTargetCastBarFuncPtr = DalamudApi.SigScanner.ScanText("40 56 41 54 41 55 41 57 48 83 EC 78");
+			var setFocusTargetCastBarFuncPtr = DalamudApi.SigScanner.ScanText("40 53 56 41 54 41 57 48 83 EC 78");
 			_setFocusTargetCastBarHook = DalamudApi.Hooks.HookFromAddress<SetCastBarDelegate>(setFocusTargetCastBarFuncPtr, SetFocusTargetCastBarDetour);
 
 			DalamudApi.FlyTextGui.FlyTextCreated += OnFlyTextCreated;
@@ -305,7 +305,7 @@ public unsafe class DamageInfoPlugin : IDalamudPlugin
 #region castbar
 	private CastbarInfo GetTargetInfoUiElements()
 	{
-		var unitBase = (AtkUnitBase*)DalamudApi.GameGui.GetAddonByName("_TargetInfo").ToPointer();
+		var unitBase = (AtkUnitBase*)DalamudApi.GameGui.GetAddonByName("_TargetInfo").Address;
 
 		if (unitBase == null) return _nullCastbarInfo;
 
@@ -319,7 +319,7 @@ public unsafe class DamageInfoPlugin : IDalamudPlugin
 
 	private CastbarInfo GetTargetInfoSplitUiElements()
 	{
-		var unitBase = (AtkUnitBase*)DalamudApi.GameGui.GetAddonByName("_TargetInfoCastBar").ToPointer();
+		var unitBase = (AtkUnitBase*)DalamudApi.GameGui.GetAddonByName("_TargetInfoCastBar").Address;
 
 		if (unitBase == null) return _nullCastbarInfo;
 
@@ -333,7 +333,7 @@ public unsafe class DamageInfoPlugin : IDalamudPlugin
 
 	private CastbarInfo GetFocusTargetUiElements()
 	{
-		var unitBase = (AtkUnitBase*)DalamudApi.GameGui.GetAddonByName("_FocusTargetInfo").ToPointer();
+		var unitBase = (AtkUnitBase*)DalamudApi.GameGui.GetAddonByName("_FocusTargetInfo").Address;
 
 		if (unitBase == null) return _nullCastbarInfo;
 

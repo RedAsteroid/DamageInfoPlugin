@@ -6,7 +6,7 @@ using Dalamud.Game.Text.SeStringHandling;
 using Dalamud.Game.Text.SeStringHandling.Payloads;
 using Dalamud.Interface.Textures;
 using Dalamud.Interface.Utility;
-using ImGuiNET;
+using Dalamud.Bindings.ImGui;
 
 namespace DamageInfoPlugin;
 
@@ -150,7 +150,7 @@ public static class Fools2023
 				else if (img != null)
 				{
 					ImGui.SetCursorPosY(ImGui.GetCursorPosY() - 8 * ImGuiHelpers.GlobalScale);
-					ImGui.Image(img.GetWrapOrEmpty().ImGuiHandle, ImGuiHelpers.ScaledVector2(32, 32));
+					ImGui.Image(img.GetWrapOrEmpty().Handle, ImGuiHelpers.ScaledVector2(32, 32));
 					ImGui.SetCursorPosY(ImGui.GetCursorPosY() + 8 * ImGuiHelpers.GlobalScale);
 				}
 				ImGui.NextColumn();
