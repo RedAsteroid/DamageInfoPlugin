@@ -25,14 +25,14 @@ namespace DamageInfoPlugin;
 // ReSharper disable once ClassNeverInstantiated.Global
 public unsafe class DamageInfoPlugin : IDalamudPlugin
 {
-	private const int TargetInfoGaugeBgNodeIndex = 41;
-	private const int TargetInfoGaugeNodeIndex = 43;
+	private const int TargetInfoGaugeBgNodeId = 15;
+	private const int TargetInfoGaugeNodeId = 13;
 
-	private const int TargetInfoSplitGaugeBgNodeIndex = 2;
-	private const int TargetInfoSplitGaugeNodeIndex = 4;
+	private const int TargetInfoSplitGaugeBgNodeId = 7;
+	private const int TargetInfoSplitGaugeNodeId = 5;
 
-	private const int FocusTargetInfoGaugeBgNodeIndex = 13;
-	private const int FocusTargetInfoGaugeNodeIndex = 15;
+	private const int FocusTargetInfoGaugeBgNodeId = 8;
+	private const int FocusTargetInfoGaugeNodeId = 6;
 
 	public string Name => "Damage Info";
 
@@ -312,8 +312,8 @@ public unsafe class DamageInfoPlugin : IDalamudPlugin
 		return new CastbarInfo
 		{
 			unitBase = unitBase,
-			gauge = (AtkImageNode*)unitBase->UldManager.NodeList[TargetInfoGaugeNodeIndex],
-			bg = (AtkImageNode*)unitBase->UldManager.NodeList[TargetInfoGaugeBgNodeIndex]
+			gauge = unitBase->GetImageNodeById(TargetInfoGaugeNodeId),
+			bg = unitBase->GetImageNodeById(TargetInfoGaugeBgNodeId),
 		};
 	}
 
@@ -326,8 +326,8 @@ public unsafe class DamageInfoPlugin : IDalamudPlugin
 		return new CastbarInfo
 		{
 			unitBase = unitBase,
-			gauge = (AtkImageNode*)unitBase->UldManager.NodeList[TargetInfoSplitGaugeNodeIndex],
-			bg = (AtkImageNode*)unitBase->UldManager.NodeList[TargetInfoSplitGaugeBgNodeIndex]
+			gauge = unitBase->GetImageNodeById(TargetInfoSplitGaugeNodeId),
+			bg = unitBase->GetImageNodeById(TargetInfoSplitGaugeBgNodeId),
 		};
 	}
 
@@ -340,8 +340,8 @@ public unsafe class DamageInfoPlugin : IDalamudPlugin
 		return new CastbarInfo
 		{
 			unitBase = unitBase,
-			gauge = (AtkImageNode*)unitBase->UldManager.NodeList[FocusTargetInfoGaugeNodeIndex],
-			bg = (AtkImageNode*)unitBase->UldManager.NodeList[FocusTargetInfoGaugeBgNodeIndex]
+			gauge = unitBase->GetImageNodeById(FocusTargetInfoGaugeNodeId),
+			bg = unitBase->GetImageNodeById(FocusTargetInfoGaugeBgNodeId),
 		};
 	}
 
