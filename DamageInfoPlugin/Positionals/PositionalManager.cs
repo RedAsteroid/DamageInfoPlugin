@@ -62,9 +62,9 @@ public class PositionalManager
 
     private void Load()
     {
-        _actionStore.Clear();
         try
         {
+            _actionStore.Clear();
             using var reader = new StreamReader(_filePath);
             using var csv = new CsvReader(reader, CultureInfo.InvariantCulture);
 
@@ -77,7 +77,7 @@ public class PositionalManager
                         Id = record.Id,
                         ActionName = record.ActionName,
                         ActionPosition = record.ActionPosition,
-                        Positionals = new Dictionary<int, PositionalParameters>(),
+                        Positionals = [],
                     };
                     _actionStore.Add(record.Id, action);
                 }
@@ -85,12 +85,10 @@ public class PositionalManager
                 var parameters = new PositionalParameters
                 {
                     Percent = record.Percent,
-                    IsHit = string.Equals(record.IsHit, "TRUE", StringComparison.OrdinalIgnoreCase),
+                    IsHit = record.IsHit == "TRUE",
                     Comment = record.Comment,
                 };
-
-                if (!action.Positionals.ContainsKey(record.Percent))
-                    action.Positionals.Add(record.Percent, parameters);
+                action.Positionals.Add(record.Percent, parameters);
             }
         }
         catch (CsvHelper.CsvHelperException ex)
